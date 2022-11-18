@@ -43,6 +43,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.Queue;
 import java.util.Set;
@@ -147,7 +148,7 @@ public final class ApplicationBundler {
   public void createBundle(Location target, Iterable<Class<?>> classes, Iterable<URI> resources) throws IOException {
     LOG.debug("start creating bundle {}. building a temporary file locally at first", target.getName());
     // Write the jar to local tmp file first
-    File tmpJar = File.createTempFile(target.getName(), ".tmp");
+    File tmpJar = Files.createTempFile(target.getName(), ".tmp").toFile();
     try {
       Set<String> entries = Sets.newHashSet();
       try (JarOutputStream jarOut = new JarOutputStream(new FileOutputStream(tmpJar))) {
